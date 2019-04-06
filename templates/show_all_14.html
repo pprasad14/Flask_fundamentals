@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head></head>
+   <body>
+      
+      <h3>
+         <a href = "{{ url_for('show_all') }}">Comments - Flask 
+            SQLAlchemy example</a>
+      </h3>
+      
+      <hr/>
+      {%- for message in get_flashed_messages() %}
+         {{ message }}
+      {%- endfor %}
+		
+      <h3>Students (<a href = "{{ url_for('new') }}">Add Student</a>)</h3>
+                 
+      
+      <table>
+         <thead>
+            <tr>
+               
+               <th>Name</th>
+               <th>City</th> 
+               <th>Address</th>
+               <th>Pin</th>
+               <th>Edit</th>
+               <th>Delete</th> 
+               <th>Upload</th>
+               <th>Profile Pic</th>	 		
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for student in students %}
+               <tr>
+
+                  <td>{{ student.name }}</td>
+                  <td>{{ student.city }}</td>
+                  <td>{{ student.addr }}</td>
+                  <td>{{ student.pin }}</td>
+                  <td><a href = /edit/{{student.id}}> Edit </a></td>
+                  <td><a href = /delete/{{student.id}}> Delete </a></td>
+                  <td><a href = /upload/{{student.id}}> Upload </a></td>
+                  <td><img src = "{{url_for('static', filename='{{student.img_path}}')}}" alt = "{{student.img_path}}" height="65" width="65"/></td>
+                	 
+              </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      
+   </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head></head>
+   <body>
+
+       <h3>Students - New Flask SQLAlchemy example</h3>
+      <hr/>
+
+      {%- for category, message in get_flashed_messages(with_categories = true) %}
+         <div class = "alert alert-danger">
+            {{ message }}
+         </div>
+      {%- endfor %}
+
+      <hr/>
+
+
+      <form action = "{{ url_for('new') }}" method = "post" enctype="multipart/form-data">
+         <!--<input type = "hidden" name = "edited" value = "{{ resArr.edited }}" />-->
+         <input type = "hidden" name = "id" value = "{{ resArr.id }}" />
+
+         <label for = "name">Name</label><br>
+         <input type = "text" name = "name" placeholder = "Name" value = "{{ resArr.name }}"/><br>
+         
+         <label for = "email">City</label><br>
+         <input type = "text" name = "city" placeholder = "city" value = "{{ resArr.city }}" /><br>
+         
+         <label for = "addr">addr</label><br>
+         <textarea name = "addr" placeholder = "addr" >{{ resArr.addr }}</textarea><br>
+         
+         <label for = "PIN">City</label><br>
+         <input type = "text" name = "pin" placeholder = "pin" value = "{{ resArr.pin }}" /><br>
+         
+         <label for = "img"> Upload Image</label><br>
+         <input type = "hidden" name = "img_" value = "{{ resArr.img_path }}" />   
+
+         <!--to hold old image name-->
+         <input type = "file" name = "img"><br><br>
+         <input type = "submit" value = "Submit" />
+      </form>
+      <br>
+
+      <hr/>
+
+      <table>
+         <thead>
+            <tr>
+               
+               <th>Name</th>
+               <th>City</th> 
+               <th>Address</th>
+               <th>Pin</th>
+               <th>Edit</th>
+               <th>Delete</th> 
+               <!--<th>Upload</th>-->
+               <th>Profile Pic</th>	 		
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for student in students %}
+               <tr>
+
+                  <td>{{ student.name }}</td>
+                  <td>{{ student.city }}</td>
+                  <td>{{ student.addr }}</td>
+                  <td>{{ student.pin }}</td>
+                  <td><a href = /edit/{{student.id}}> Edit </a></td>
+                  <td><a href = /delete/{{student.id}}> Delete </a></td>
+                  <!--<td><a href = /upload/{{student.id}}> Upload </a></td>-->
+                  <td><img src = "/static/{{student.img_path}}" alt = "{{student.img_path}}" height="80" width="75"></td>
+
+              </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      
+   </body>
+</html>
